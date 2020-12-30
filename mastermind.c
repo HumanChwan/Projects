@@ -42,17 +42,16 @@ int main()
     scanf("%c", &userInpRepeat);
     // printf("%c", userInpRepeat); // Checking userInpRepeat
   }
-
   //Setting random number
   srand(time(0));
-
-  if (userInpRepeat = 'n')
+  //lmao noob mistake :pensive:
+  if (userInpRepeat == 'n')
   {
     repeat = 0;
     do
     {
       numToGuess = (rand() % (maxValue - minValue + 1)) + minValue;
-    } while (checkRepeat(numToGuess, numOfDigits, minValue, minValue, numToGuessArr) != 0);
+    } while (checkRepeat(numToGuess, numOfDigits) != 0);
   }
   else
   {
@@ -89,7 +88,7 @@ int main()
     {
       printf("Enter guess %d: \n", (i+1));
       scanf("%d", &guess);
-    } while(!(guess>minValue && guess<maxValue && checkRepeat(guess, numOfDigits, maxValue, minValue, guessArr) == repeat));
+    } while(!(guess>minValue && guess<maxValue && checkRepeat(guess, numOfDigits) == repeat));
     //guess can be equal to max and min right?
 
     //Converting guess and numtoguess to array for comparison of digits
