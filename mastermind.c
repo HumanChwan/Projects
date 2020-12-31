@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
 
 // function prototypes
 void intToArray(int numToConvert, int numOfDigits, int arr[]); 
 void arraySort(int arr[], int length);
-int checkRepeat(int num, int numofdig);
+bool checkRepeat(int num, int numofdig); //@HumanChwan : ref line 19
 
 int main()
 {
@@ -15,7 +16,7 @@ int main()
   int guessArr[numOfDigits], numToGuessArr[numOfDigits];
 
   //For repeated digits check
-  int repeat = 0;
+  bool repeat = false; //@HumanChwan : using bool is preferred imo (cuz mem : 1 byte)
   char userInpRepeat = '2';
 
   //Setting number of digits in number
@@ -48,16 +49,16 @@ int main()
   //lmao noob mistake :pensive:
   if (userInpRepeat == 'n')
   {
-    repeat = 0;
+    repeat = false;
     do
     {
       numToGuess = (rand() % (maxValue - minValue + 1)) + minValue;
-    } while (checkRepeat(numToGuess, numOfDigits != 0));
+    } while (checkRepeat(numToGuess, numOfDigits)); //@HumanChwan : apparently if(s == 0) & if(s) are equivalent
     printf("A random number with %d digits without repeated digits has been chosen\n", numOfDigits);
   }
   else
   {
-    repeat = 1;
+    repeat = true;
     numToGuess = (rand() % (maxValue - minValue + 1)) + minValue;
     printf("A random number with %d digits with or without repeated digits has been chosen\n", numOfDigits);
   }
@@ -88,7 +89,6 @@ int main()
       printf("Enter guess %d: \n", (i+1));
       scanf("%d", &guess);
     } while(!(guess>minValue && guess<maxValue && checkRepeat(guess, numOfDigits) == repeat));
-    //guess can be equal to max and min right?
 
     //Converting guess and numtoguess to array for comparison of digits
 
@@ -165,8 +165,8 @@ void arraySort(int arr[], int length)
   }
 }
 
-int checkRepeat(int num, int numOfDigits){
-      int repeat = 0;
+bool checkRepeat(int num, int numOfDigits){
+      bool repeat = false; //@HumanChwan : ref line 19
       int tempNumToGuessArr[numOfDigits];
       intToArray(num, numOfDigits, tempNumToGuessArr);
       arraySort(tempNumToGuessArr, numOfDigits);
@@ -174,7 +174,7 @@ int checkRepeat(int num, int numOfDigits){
       {
         if (!(tempNumToGuessArr[i + 1] < tempNumToGuessArr[i]))
         {
-          repeat++;
+          repeat = true;;
           break;
         }
       }
